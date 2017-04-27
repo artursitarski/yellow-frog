@@ -1,0 +1,44 @@
+# file: roles/jenkins/tasks/main.yml
+
+- name: download jenkins repo file
+  get_url:
+    url: '{{ jenkins.repo.url }}'
+    dest: '/etc/yum.repos.d/jenkins.repo'
+    mode: 0640
+    owner: 'root'
+    group: 'root'
+
+- name: import jenkins repo GPG key
+  rpm_key:
+    state: 'present'
+    key: '{{ jenkins.repo.key_url }}'
+
+- name: install jenkins server
+  yum:
+    name: 'jenkins'
+    state: 'present'
+
+- name: create directory for jenkins plugins
+  file:
+    path: '{{ jenkins.home_dir }}/plugins'
+    owner: '{{ jenkins.user }}'
+    group: '{{ jenkins.group }}'
+    mode: '0755'
+    state: 'directory'
+
+- name: install jenkins plugins
+  get_url:
+    url: '{{ item.url }}'
+    dest: '{{ jenkins.home_dir }}/plugins/{{ item.name }}'
+    mode: 0440
+    owner: '{{ jenkins.user }}'
+    group: '{{ jenkins.group }}'
+  with_items:
+    - '{{ jenkins.plugins }}'
+  notify: restart jenkins
+
+- name: start jenkins service
+  systemd:
+    name: 'jenkins'
+    state: 'started'
+    enabled: True

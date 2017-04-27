@@ -1,0 +1,6 @@
+# file: roles/jenkins/handlers/main.yml
+
+- name: restart jenkins
+  systemd:
+    name: 'jenkins'
+    state: 'restarted'

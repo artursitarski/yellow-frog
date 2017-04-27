@@ -1,0 +1,12 @@
+# file: roles/apache/tasks/main.yml
+
+- name: install httpd server
+  yum:
+    name: 'httpd'
+    state: 'present'
+
+- name: start httpd service
+  systemd:
+    name: 'httpd'
+    state: 'started'
+    enabled: True

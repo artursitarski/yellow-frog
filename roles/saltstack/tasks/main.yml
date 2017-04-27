@@ -1,0 +1,29 @@
+# file: roles/saltstack/tasks/main.yml
+
+- name: Install saltstack repository
+  yum:
+    name: '{{ salt.repo_url }}'
+    state: 'present'
+
+- name: Install saltstack minion
+  yum:
+    name: 'salt-minion'
+    state: 'latest'
+
+- name: deploy salt-minion config
+  template:
+    src: 'salt_minion.j2'
+    dest: '/etc/salt/minion'
+    owner: 'root'
+    group: 'root'
+    mode: 0640
+  notify: restart salt-minion
+
+- name: start salt-minion service
+  systemd:
+    name: 'salt-minion'
+    state: 'started'
+    enabled: True
+
+- include: server.yml
+  when: salt_master is defined and salt_master == true

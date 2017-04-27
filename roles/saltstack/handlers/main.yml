@@ -1,0 +1,11 @@
+# file: roles/saltstack/handlers/main.yml
+
+- name: restart salt-master
+  systemd:
+    name: 'salt-master'
+    state: 'restarted'
+
+- name: restart salt-minion
+  systemd:
+    name: 'salt-minion'
+    state: 'restarted'

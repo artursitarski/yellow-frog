@@ -1,0 +1,34 @@
+- name: Configure instance A
+
+  hosts: instancea
+  gather_facts: true
+  become: yes
+
+  vars:
+    salt_master: true
+
+  roles:
+    - role: saltstack
+
+- name: Configure instance B
+
+  hosts: instanceb
+  gather_facts: true
+  become: yes
+
+  roles:
+    - role: saltstack
+    - role: apache
+    - role: php
+    - role: mysql
+
+- name: Configure instance C
+
+  hosts: instancec
+  gather_facts: true
+  become: yes
+
+  roles:
+    - role: saltstack
+    - role: java
+    - role: jenkins

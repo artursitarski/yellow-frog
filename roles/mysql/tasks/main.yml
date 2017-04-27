@@ -1,0 +1,14 @@
+# file: roles/mysql/tasks/main.yml
+
+- name: install mariadb server
+  yum:
+    name: 'mariadb-server'
+    state: 'present'
+
+- name: start mariadb service
+  systemd:
+    name: 'mariadb'
+    state: 'started'
+    enabled: True
+
+- include: set_creds.yml

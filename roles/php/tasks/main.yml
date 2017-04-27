@@ -1,0 +1,13 @@
+# file: roles/php/tasks/main.yml
+
+- name: Install IUS repo
+  yum:
+    name: '{{ php.repo_url }}'
+    state: 'present'
+
+- name: install php from IUS repo
+  yum:
+    name: 'php71u-common'
+    disablerepo: '*'
+    enablerepo: 'ius'
+    state: 'present'

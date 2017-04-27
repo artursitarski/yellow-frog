@@ -1,0 +1,15 @@
+# file: roles/saltstack/tasks/server.yml
+
+- name: Install saltstack server
+  yum:
+    name: 'salt-master'
+    state: 'latest'
+
+- name: start salt-master service
+  systemd:
+    name: 'salt-master'
+    state: 'started'
+    enabled: True
+
+- name: accept minions keys
+  command: 'salt-key -y -A'

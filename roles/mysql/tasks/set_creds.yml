@@ -1,0 +1,32 @@
+# file: roles/mysql/tasks/set_creds.yml
+
+- include_vars: secrets.yml
+
+- name: install MySQL-python for mysql_user module
+  yum:
+    name: 'MySQL-python'
+    state: 'present'
+
+- name: set root password in mysql
+  mysql_user:
+    name: 'root'
+    host: '{{ item }}'
+    password: '{{ mysql.root_pass }}'
+    state: 'present'
+  with_items:
+    - '{{ ansible_hostname }}'
+    - '::1'
+    - '127.0.0.1'
+    - 'localhost'
+
+- name: Add .my.cnf
+  template:
+    src: 'my.cnf.j2'
+    dest: '/root/.my.cnf'
+    owner: 'root'
+    group: 'root'
+    mode: '0600'
+
+- name: flush mysql privileges
+  command: 'mysql -ne "FLUSH PRIVILEGES"'
+  changed_when: False

@@ -1,0 +1,18 @@
+# file: roles/jenkins/vars/main.yml
+
+jenkins:
+  repo:
+    url: 'https://pkg.jenkins.io/redhat-stable/jenkins.repo'
+    key_url: 'https://pkg.jenkins.io/redhat-stable/jenkins.io.key'
+  home_dir: '/var/lib/jenkins'
+  user: 'jenkins'
+  group: 'jenkins'
+  plugins:
+    - name: 'bouncycastle-api.hpi'
+      url: 'http://updates.jenkins-ci.org/latest/bouncycastle-api.hpi'
+    - name: 'script-security.hpi'
+      url: 'http://updates.jenkins-ci.org/latest/script-security.hpi'
+    - name: 'structs.hpi'
+      url: 'http://updates.jenkins-ci.org/latest/structs.hpi'
+    - name: 'job-dsl.hpi'
+      url: 'http://updates.jenkins-ci.org/latest/job-dsl.hpi'

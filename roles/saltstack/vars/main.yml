@@ -1,0 +1,5 @@
+# file: roles/saltstack/vars/main.yml
+
+salt:
+  repo_url: 'https://repo.saltstack.com/yum/redhat/salt-repo-latest-1.el7.noarch.rpm'
+  master_ip: '192.168.10.10'

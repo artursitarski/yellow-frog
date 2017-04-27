@@ -1,0 +1,4 @@
+# file: roles/php/vars/main.yml
+
+php:
+  repo_url: https://centos7.iuscommunity.org/ius-release.rpm

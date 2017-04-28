@@ -1,0 +1,12 @@
+{{ jenkins.logs.path }}/* {
+  daily
+  compress
+  dateext
+  maxage 365
+  rotate {{ jenkins.logs.rotation }}
+  size=+4096k
+  notifempty
+  missingok
+  create 644
+  copytruncate
+}

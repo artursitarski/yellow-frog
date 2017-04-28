@@ -7,6 +7,9 @@ jenkins:
   home_dir: '/var/lib/jenkins'
   user: 'jenkins'
   group: 'jenkins'
+  logs:
+    path: '/var/log/jenkins'
+    rotation: 3
   plugins:
     - name: 'bouncycastle-api.hpi'
       url: 'http://updates.jenkins-ci.org/latest/bouncycastle-api.hpi'
